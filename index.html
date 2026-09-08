@@ -193,6 +193,42 @@ table{border-collapse:collapse}
   transform:translate3d(0,101%,0);animation:intro-sweep .82s var(--ease) .95s forwards}
 @keyframes intro-sweep{40%{transform:translate3d(0,0,0)}100%{transform:translate3d(0,-101%,0);visibility:hidden}}
 html.no-intro .intro,html.no-intro .intro-curtain{display:none}
+
+/* ── Karşılama ekranı ────────────────────────────────────────────
+   Perde kalkınca mağaza yerine bu açılır. JS ile gösterilir; JS
+   çalışmazsa hiç görünmez ve mağaza doğrudan açılır (güvenli yön). */
+.welcome{position:fixed;inset:0;z-index:380;display:grid;place-items:center;
+  padding:clamp(20px,5vw,48px);background:var(--bg);overflow-y:auto;
+  opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
+.welcome.on{opacity:1;visibility:visible}
+.welcome::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 55% at 50% 42%,color-mix(in srgb,var(--bl) 16%,transparent),transparent 70%),
+             radial-gradient(ellipse 60% 45% at 18% 88%,color-mix(in srgb,var(--ac) 13%,transparent),transparent 70%)}
+.wel-in{position:relative;width:100%;max-width:660px;display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:18px}
+.wel-in>*{opacity:0;transform:translate3d(0,16px,0)}
+.welcome.on .wel-in>*{animation:wel-up .6s var(--ease) forwards}
+.welcome.on .wel-in>*:nth-child(1){animation-delay:.10s}
+.welcome.on .wel-in>*:nth-child(2){animation-delay:.18s}
+.welcome.on .wel-in>*:nth-child(3){animation-delay:.28s}
+.welcome.on .wel-in>*:nth-child(4){animation-delay:.38s}
+.welcome.on .wel-in>*:nth-child(5){animation-delay:.48s}
+.welcome.on .wel-in>*:nth-child(6){animation-delay:.58s}
+@keyframes wel-up{to{opacity:1;transform:none}}
+.wel-eyebrow{font-family:var(--f-mono);font-size:.68rem;font-weight:700;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--bl-tx)}
+.wel-h{font-family:var(--f-display);font-weight:900;font-size:clamp(2.1rem,7vw,3.8rem);line-height:.98;
+  letter-spacing:-.04em;text-transform:uppercase;text-wrap:balance}
+.wel-h em{font-style:normal;color:var(--bl)}
+.wel-p{max-width:46ch;color:var(--tx2);font-size:clamp(.92rem,1.7vw,1.02rem)}
+.wel-crew{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.wel-crew img{width:48px;height:48px;border-radius:var(--r2);background:var(--av-bg);
+  border:1px solid var(--line);object-fit:contain;image-rendering:pixelated}
+.wel-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.wel-skip{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tx3);padding:8px 12px;border-radius:var(--rf)}
+.wel-skip:hover{color:var(--tx)}
+@media (prefers-reduced-motion:reduce){.wel-in>*{opacity:1;transform:none}}
 /* Perde kalkarken arayuz sirayla yerine oturur. Yalnizca acilista oynar. */
 @keyframes enter-down{from{opacity:0;transform:translate3d(0,-14px,0)}to{opacity:1;transform:none}}
 @keyframes enter-left{from{opacity:0;transform:translate3d(-22px,0,0)}to{opacity:1;transform:none}}
@@ -791,6 +827,20 @@ html.intro-run .pcard{animation-delay:calc(1.72s + var(--i,0)*45ms)}
   </div>
 </div>
 <div class="intro-curtain" aria-hidden="true"></div>
+
+<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welH" hidden>
+  <div class="wel-in">
+    <p class="wel-eyebrow" id="welEyebrow">VANTRA · BURSA · SS26</p>
+    <h1 class="wel-h" id="welH">Hoş geldin</h1>
+    <p class="wel-p" id="welP">Ağır gramaj kapşonlular, boxy kesim tişörtler ve imza parfüm serisi. Her parça Bursa'da üretilir, doğrudan kapına gelir.</p>
+    <div class="wel-crew" id="welCrew" aria-hidden="true"></div>
+    <div class="wel-cta">
+      <button class="btn b-red b-lg" type="button" id="welEnter">Koleksiyona gir</button>
+      <button class="btn b-gho b-lg" type="button" id="welAcct">Giriş yap</button>
+    </div>
+    <button class="wel-skip" type="button" id="welSkip">Geç</button>
+  </div>
+</div>
 <div class="mesh" aria-hidden="true"><i></i><i></i></div>
 <a class="skip" href="#stage" id="skipLink">İçeriğe geç</a>
 
@@ -1969,12 +2019,57 @@ function requireAuth(msg, fn) {
   openGate('login', msg, fn);
 }
 
+/** Karşılama ekranı: oturumda bir kez, perde kalkarken açılır. */
+function showWelcome() {
+  var seen = false;
+  try { seen = sessionStorage.getItem('vantra:wel') === '1'; } catch (e) {}
+  if (seen) return;
+  try { sessionStorage.setItem('vantra:wel', '1'); } catch (e) {}
+
+  var w = $('#welcome');
+  var crew = clear($('#welCrew'));
+  [1, 4, 8, 9, 11, 2].forEach(function (i) { crew.appendChild(avatarSVG(i, 'b')); });
+
+  if (S.user) {
+    $('#welH').textContent = 'Tekrar hoş geldin,';
+    var first = (S.user.name || '').split(' ')[0];
+    $('#welH').appendChild(document.createTextNode(' '));
+    $('#welH').appendChild(el('em', { text: first }));
+    $('#welP').textContent = 'Sepetin ve favorilerin yerinde duruyor. Kaldığın yerden devam edebilirsin.';
+    $('#welAcct').textContent = 'Hesabıma git';
+  }
+
+  var delay = document.documentElement.classList.contains('intro-run') ? 1500 : 60;
+  setTimeout(function () {
+    w.hidden = false;
+    requestAnimationFrame(function () { w.classList.add('on'); });
+    pushLayer(welLayer);
+    setTimeout(function () { $('#welEnter').focus(); }, 620);
+  }, delay);
+}
+var welLayer = { veil: false, close: function () { closeWelcome(); } };
+function closeWelcome() {
+  var w = $('#welcome');
+  if (w.hidden) return;
+  w.classList.remove('on');
+  popLayer(welLayer);
+  setTimeout(function () { if (!w.classList.contains('on')) w.hidden = true; }, 560);
+}
+$('#welEnter').addEventListener('click', closeWelcome);
+$('#welSkip').addEventListener('click', closeWelcome);
+$('#welAcct').addEventListener('click', function () {
+  closeWelcome();
+  if (S.user) go('account', { acctTab: 'profile' });
+  else setTimeout(function () { openGate('login', null, function () { go('account'); }); }, 400);
+});
+
 function enterApp() {
   $('#app').hidden = false;
   paintMe(); paintCart(); paintFavs();
   go('catalog');
   if (!LS.get('cookieOk', false)) $('#cookie').hidden = false;
   if (!SUBTLE) $('#insecureBar').hidden = false;
+  showWelcome();
 }
 function logout() {
   saveAll();
