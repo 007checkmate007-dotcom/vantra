@@ -236,8 +236,8 @@ table{border-collapse:collapse}
 .pane{padding:var(--gut);max-width:1420px;margin-inline:auto}
 
 /* ═══════════════════════ 4. VİTRİN ═══════════════════════ */
-.catalog{display:grid;grid-template-columns:248px 1fr;gap:0;height:100%}
-.filters{border-right:1px solid var(--line);overflow-y:auto;padding:var(--gut);background:var(--bg2)}
+.catalog{display:grid;grid-template-columns:248px 1fr;gap:0;height:100%;min-height:0;overflow:hidden}
+.filters{border-right:1px solid var(--line);overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:var(--gut);background:var(--bg2)}
 .fgrp{padding-block:14px;border-bottom:1px solid var(--line)}
 .fgrp:last-child{border-bottom:0}
 .fgrp>h3{font-family:var(--f-mono);font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
@@ -266,7 +266,7 @@ table{border-collapse:collapse}
   font-family:var(--f-mono);font-size:.82rem}
 .range-row span{color:var(--tx3)}
 
-.results{overflow-y:auto;padding:var(--gut)}
+.results{overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:var(--gut)}
 .res-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;margin-bottom:16px}
 .res-head h1{font-family:var(--f-display);font-weight:900;font-size:clamp(1.3rem,2.6vw,1.9rem);letter-spacing:-.03em;text-transform:uppercase}
 .res-count{font-family:var(--f-mono);font-size:.76rem;color:var(--tx3)}
@@ -581,8 +581,8 @@ table{border-collapse:collapse}
 .coupon-on b{font-family:var(--f-mono);color:var(--ok-tx)}
 
 /* ═══════════════════════ 8. HESAP & SİPARİŞ ═══════════════════════ */
-.acct{display:grid;grid-template-columns:236px 1fr;gap:0;height:100%}
-.acct-nav{border-right:1px solid var(--line);overflow-y:auto;padding:var(--gut);background:var(--bg2)}
+.acct{display:grid;grid-template-columns:236px 1fr;gap:0;height:100%;min-height:0;overflow:hidden}
+.acct-nav{border-right:1px solid var(--line);overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:var(--gut);background:var(--bg2)}
 .acct-me{display:flex;align-items:center;gap:11px;padding-bottom:16px;margin-bottom:12px;border-bottom:1px solid var(--line)}
 .acct-me .av{width:46px;height:46px;border-radius:var(--rf);overflow:hidden;border:1px solid var(--line);background:var(--av-bg);flex:0 0 auto}
 .acct-me b{display:block;font-size:.92rem;font-weight:700;line-height:1.2}
@@ -593,7 +593,7 @@ table{border-collapse:collapse}
 .acct-nav button[aria-current="true"]{background:var(--ac);color:var(--ac-ink);font-weight:700}
 .acct-nav button svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex:0 0 auto}
 .acct-nav button .cnt{margin-left:auto;font-family:var(--f-mono);font-size:.7rem;opacity:.75}
-.acct-body{overflow-y:auto;padding:var(--gut)}
+.acct-body{overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:var(--gut)}
 .sec-t{font-family:var(--f-display);font-weight:900;font-size:1.3rem;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:4px}
 .sec-d{font-size:.86rem;color:var(--tx2);margin-bottom:18px}
 
@@ -624,12 +624,12 @@ table{border-collapse:collapse}
 .notif time{font-family:var(--f-mono);font-size:.7rem;color:var(--tx3)}
 
 /* ═══════════════════════ 9. YARDIM / POLİTİKA ═══════════════════════ */
-.docs{display:grid;grid-template-columns:236px 1fr;gap:0;height:100%}
-.doc-nav{border-right:1px solid var(--line);overflow-y:auto;padding:var(--gut);background:var(--bg2)}
+.docs{display:grid;grid-template-columns:236px 1fr;gap:0;height:100%;min-height:0;overflow:hidden}
+.doc-nav{border-right:1px solid var(--line);overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:var(--gut);background:var(--bg2)}
 .doc-nav button{display:block;width:100%;padding:8px 11px;border-radius:var(--r2);font-size:.86rem;color:var(--tx2);text-align:left;transition:background .18s,color .18s}
 .doc-nav button:hover{background:var(--surf2);color:var(--tx)}
 .doc-nav button[aria-current="true"]{background:var(--ac);color:var(--ac-ink);font-weight:700}
-.doc-body{overflow-y:auto;padding:var(--gut)}
+.doc-body{overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:var(--gut)}
 .prose{max-width:76ch;display:flex;flex-direction:column;gap:13px;font-size:.92rem;color:var(--tx2)}
 .prose h2{font-family:var(--f-display);font-weight:900;font-size:1.4rem;letter-spacing:-.03em;text-transform:uppercase;color:var(--tx)}
 .prose h3{font-family:var(--f-display);font-weight:800;font-size:1rem;color:var(--tx);margin-top:8px}
@@ -693,7 +693,7 @@ table{border-collapse:collapse}
   :root{--top:56px}
   .tabs{display:none}
   .burger{display:block}
-  .catalog,.acct,.docs{grid-template-columns:1fr}
+  .catalog,.acct,.docs{grid-template-columns:1fr;overflow:visible}
   .filters,.acct-nav,.doc-nav{position:fixed;top:var(--top);bottom:0;left:0;width:min(300px,86vw);z-index:120;
     border-right:1px solid var(--line);transform:translate3d(-101%,0,0);visibility:hidden;
     transition:transform .38s var(--ease),visibility .38s}
