@@ -221,11 +221,15 @@ table{border-collapse:collapse}
 .subbar{flex:0 0 auto;min-height:var(--sub);display:flex;align-items:center;gap:14px;padding:8px var(--gut);
   border-bottom:1px solid var(--line);background:var(--bg2);position:relative;z-index:50;overflow-x:auto;scrollbar-width:none}
 .subbar::-webkit-scrollbar{display:none}
-.crumb{display:flex;align-items:center;gap:7px;font-size:.82rem;color:var(--tx2);white-space:nowrap}
+.crumb{display:flex;align-items:center;gap:7px;font-size:.82rem;color:var(--tx2);white-space:nowrap;min-width:0}
 .crumb button,.crumb a{color:var(--tx2);border-radius:var(--r1);padding:2px 4px}
 .crumb button:hover{color:var(--ac-tx)}
 .crumb svg{width:13px;height:13px;stroke:var(--tx3);fill:none;stroke-width:2}
 .crumb [aria-current="page"]{color:var(--tx);font-weight:600}
+/* Yapiskan filtre seridi kaldirildi: dar kaliyor, arkasindaki kartlar
+   iki yanindan sizip siyah bir bant gibi gorunuyordu. Dugme artik
+   ust seritte (.sub-act) duruyor ve hicbir icerigin ustune binmiyor. */
+.sub-act{display:none;margin-left:auto;gap:8px;flex:0 0 auto}
 
 /* Sahne: SADECE burası kayar, sayfa asla kaymaz */
 .stage{flex:1 1 auto;min-height:0;position:relative;overflow:hidden}
@@ -698,7 +702,7 @@ table{border-collapse:collapse}
     border-right:1px solid var(--line);transform:translate3d(-101%,0,0);visibility:hidden;
     transition:transform .38s var(--ease),visibility .38s}
   .filters.open,.acct-nav.open,.doc-nav.open{transform:none;visibility:visible}
-  .fbar{display:flex!important}
+  .sub-act{display:flex}
   .avatar-grid{grid-template-columns:repeat(4,1fr)}
 }
 @media (max-width:560px){
@@ -711,8 +715,6 @@ table{border-collapse:collapse}
   .avatar-grid{grid-template-columns:repeat(3,1fr)}
   .stickybuy{display:flex}
 }
-.fbar{display:none;position:sticky;top:0;z-index:30;gap:8px;padding:10px 0;margin-bottom:6px;background:var(--bg);
-  border-bottom:1px solid var(--line)}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
@@ -888,6 +890,7 @@ table{border-collapse:collapse}
   </div>
   <div class="subbar" id="subbar">
     <nav class="crumb" id="crumb" aria-label="Kırıntı yolu"></nav>
+    <div class="sub-act" id="subAct"></div>
   </div>
 
   <main class="stage" id="stage" tabindex="-1">
@@ -1951,8 +1954,24 @@ function go(view, opt) {
   else if (view === '404') render404();
   host.classList.remove('view-in'); void host.offsetWidth; host.classList.add('view-in');
   paintCrumb();
+  paintSubAct();
   closeMobileMenu();
 }
+/** Ust seritteki yan panel dugmesi (yalnizca dar ekranda gorunur). */
+function paintSubAct() {
+  var box = clear($('#subAct'));
+  var cfg = S.view === 'catalog' ? { sel: '#filterPanel', label: 'Filtreler', count: activeFilterCount() }
+          : S.view === 'account' ? { sel: '#acctNav', label: 'Hesap menüsü', count: 0 }
+          : S.view === 'docs'    ? { sel: '#docNav', label: 'Konular', count: 0 } : null;
+  if (!cfg) return;
+  var panel = $(cfg.sel);
+  if (!panel) return;                 /* panel yoksa (ör. misafir hesabı) düğme de olmasın */
+  box.appendChild(el('button', { class: 'btn b-sec b-sm', type: 'button',
+    onclick: function () { panel.classList.add('open'); } },
+    [ic(['M3 5h18', 'M6 12h12', 'M10 19h4'], 2),
+     el('span', { text: cfg.label + (cfg.count ? ' (' + cfg.count + ')' : '') })]));
+}
+
 function paintCrumb() {
   var c = clear($('#crumb'));
   function part(label, fn, cur) {
@@ -2222,11 +2241,6 @@ function renderCatalog() {
   var main = el('div', { class: 'results' });
   var list = sortList(PRODUCTS.filter(matches));
 
-  var fbar = el('div', { class: 'fbar' }, el('button', { class: 'btn b-sec b-sm', type: 'button',
-    onclick: function () { $('#filterPanel').classList.add('open'); } },
-    [ic(['M3 5h18', 'M6 12h12', 'M10 19h4'], 2), el('span', { text: 'Filtreler' + (activeFilterCount() ? ' (' + activeFilterCount() + ')' : '') })]));
-  main.appendChild(fbar);
-
   var title = S.filters.q ? '"' + S.filters.q + '" için sonuçlar'
     : S.filters.sub ? SUBNAME[S.filters.sub].n
     : S.filters.cat ? (CATS.filter(function (c) { return c.id === S.filters.cat; })[0] || {}).n
@@ -2291,6 +2305,7 @@ function renderCatalog() {
 
   wrap.appendChild(side); wrap.appendChild(main);
   host.appendChild(wrap);
+  paintSubAct();
 }
 
 /* ── Arama + öneriler ── */
@@ -3536,8 +3551,6 @@ function renderAccount() {
   } }, [ic(['M15 16l4-4-4-4', 'M19 12H9', 'M13 4H5v16h8'], 1.8), el('span', { text: 'Çıkış yap' })]));
 
   var body = el('div', { class: 'acct-body' });
-  body.appendChild(el('div', { class: 'fbar' }, el('button', { class: 'btn b-sec b-sm', type: 'button',
-    text: 'Hesap menüsü', onclick: function () { $('#acctNav').classList.add('open'); } })));
 
   var T = S.acctTab;
   if (T === 'profile') body.appendChild(accProfile());
@@ -4180,8 +4193,6 @@ function renderDocs() {
       onclick: function () { S.docTab = d.id; renderDocs(); } }));
   });
   var body = el('div', { class: 'doc-body' });
-  body.appendChild(el('div', { class: 'fbar' }, el('button', { class: 'btn b-sec b-sm', type: 'button',
-    text: 'Konular', onclick: function () { $('#docNav').classList.add('open'); } })));
   var doc = DOCS.filter(function (d) { return d.id === S.docTab; })[0] || DOCS[0];
   body.appendChild(el('div', { class: 'prose' }, doc.build()));
   body.appendChild(el('p', { class: 'tiny dim', style: { 'margin-top': '26px', 'padding-top': '14px', 'border-top': '1px solid var(--line)' },
@@ -4224,7 +4235,7 @@ document.addEventListener('click', function (e) {
   if (window.innerWidth > 860) return;
   ['#filterPanel', '#acctNav', '#docNav'].forEach(function (sel) {
     var n = $(sel);
-    if (n && n.classList.contains('open') && !e.target.closest(sel) && !e.target.closest('.fbar')) n.classList.remove('open');
+    if (n && n.classList.contains('open') && !e.target.closest(sel) && !e.target.closest('.sub-act')) n.classList.remove('open');
   });
 });
 
