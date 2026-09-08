@@ -194,41 +194,105 @@ table{border-collapse:collapse}
 @keyframes intro-sweep{40%{transform:translate3d(0,0,0)}100%{transform:translate3d(0,-101%,0);visibility:hidden}}
 html.no-intro .intro,html.no-intro .intro-curtain{display:none}
 
-/* ── Karşılama ekranı ────────────────────────────────────────────
-   Perde kalkınca mağaza yerine bu açılır. JS ile gösterilir; JS
-   çalışmazsa hiç görünmez ve mağaza doğrudan açılır (güvenli yön). */
-.welcome{position:fixed;inset:0;z-index:380;display:grid;place-items:center;
-  padding:clamp(20px,5vw,48px);background:var(--bg);overflow-y:auto;
-  opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
-.welcome.on{opacity:1;visibility:visible}
-.welcome::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 70% 55% at 50% 42%,color-mix(in srgb,var(--bl) 16%,transparent),transparent 70%),
-             radial-gradient(ellipse 60% 45% at 18% 88%,color-mix(in srgb,var(--ac) 13%,transparent),transparent 70%)}
-.wel-in{position:relative;width:100%;max-width:660px;display:flex;flex-direction:column;align-items:center;
-  text-align:center;gap:18px}
-.wel-in>*{opacity:0;transform:translate3d(0,16px,0)}
-.welcome.on .wel-in>*{animation:wel-up .6s var(--ease) forwards}
-.welcome.on .wel-in>*:nth-child(1){animation-delay:.10s}
-.welcome.on .wel-in>*:nth-child(2){animation-delay:.18s}
-.welcome.on .wel-in>*:nth-child(3){animation-delay:.28s}
-.welcome.on .wel-in>*:nth-child(4){animation-delay:.38s}
-.welcome.on .wel-in>*:nth-child(5){animation-delay:.48s}
-.welcome.on .wel-in>*:nth-child(6){animation-delay:.58s}
-@keyframes wel-up{to{opacity:1;transform:none}}
-.wel-eyebrow{font-family:var(--f-mono);font-size:.68rem;font-weight:700;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--bl-tx)}
-.wel-h{font-family:var(--f-display);font-weight:900;font-size:clamp(2.1rem,7vw,3.8rem);line-height:.98;
-  letter-spacing:-.04em;text-transform:uppercase;text-wrap:balance}
-.wel-h em{font-style:normal;color:var(--bl)}
-.wel-p{max-width:46ch;color:var(--tx2);font-size:clamp(.92rem,1.7vw,1.02rem)}
-.wel-crew{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
-.wel-crew img{width:48px;height:48px;border-radius:var(--r2);background:var(--av-bg);
-  border:1px solid var(--line);object-fit:contain;image-rendering:pixelated}
-.wel-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.wel-skip{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--tx3);padding:8px 12px;border-radius:var(--rf)}
-.wel-skip:hover{color:var(--tx)}
-@media (prefers-reduced-motion:reduce){.wel-in>*{opacity:1;transform:none}}
+/* ── Giriş sayfası ───────────────────────────────────────────────
+   Mağazanın önünde duran, kaydırılarak gezilen tanıtım katmanı.
+   JS ile gösterilir; JS çalışmazsa hiç görünmez ve mağaza doğrudan
+   açılır. Her bölüm dinlenme hâlinde GÖRÜNÜRDÜR; yalnızca ilk
+   boyada ekranın altında kalanlar animasyon için "kurulur".      */
+.land{position:fixed;inset:0;z-index:380;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--bg);opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
+.land.on{opacity:1;visibility:visible}
+.land-wrap{position:relative;z-index:1}
+.land-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.land-bg i{position:absolute;display:block;border-radius:50%;filter:blur(90px)}
+.land-bg i:nth-child(1){width:52vmax;height:52vmax;left:-14vmax;top:-18vmax;
+  background:color-mix(in srgb,var(--ac) 22%,transparent);animation:ld1 30s var(--ease) infinite}
+.land-bg i:nth-child(2){width:44vmax;height:44vmax;right:-14vmax;top:26vmax;
+  background:color-mix(in srgb,var(--bl) 26%,transparent);animation:ld2 38s var(--ease) infinite}
+@keyframes ld1{0%,100%{transform:none}50%{transform:translate3d(12vmax,9vmax,0) scale(1.15)}}
+@keyframes ld2{0%,100%{transform:scale(1.1)}50%{transform:translate3d(-13vmax,-8vmax,0) scale(.92)}}
+
+.land-x{position:fixed;top:16px;right:16px;z-index:6}
+.land-sec{position:relative;padding-inline:var(--gut);max-width:1180px;margin-inline:auto}
+
+/* Hero */
+.ld-hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:90px 40px}
+.ld-eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:22px}
+.ld-h1{font-family:var(--f-display);font-weight:900;font-size:clamp(2.7rem,9vw,7rem);line-height:.92;
+  letter-spacing:-.045em;text-transform:uppercase;max-width:14ch;margin-bottom:24px}
+.ld-h1 .ln{display:block}
+.ld-h1 em{font-style:normal;color:var(--ac-tx)}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}
+.wi{display:inline-block;will-change:transform}
+.ld-h1 .wi{animation:word-up .95s var(--ease) both;animation-delay:calc(var(--wd,0ms) + .25s)}
+@keyframes word-up{from{transform:translate3d(0,110%,0);opacity:0}to{transform:none;opacity:1}}
+.ld-sub{max-width:52ch;font-size:clamp(1rem,1.6vw,1.16rem);color:var(--tx2);
+  animation:soft-up .8s var(--ease) .85s both}
+.ld-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;animation:soft-up .8s var(--ease) 1s both}
+@keyframes soft-up{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:none}}
+.ld-cue{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:40px;
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tx3);
+  animation:soft-up .8s var(--ease) 1.15s both}
+.ld-cue i{display:block;width:38px;height:1px;background:var(--line2);position:relative;overflow:hidden}
+.ld-cue i::after{content:"";position:absolute;inset:0;background:var(--ac);transform-origin:left;
+  animation:cue 2.4s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleX(0)}45%{transform:scaleX(1)}55%{transform:scaleX(1);transform-origin:right}
+  100%{transform:scaleX(0);transform-origin:right}}
+
+/* Kayan şerit */
+.ld-tick{position:relative;overflow:hidden;border-block:1px solid var(--line);
+  background:var(--surf);padding:12px 0;margin-block:10px}
+.ld-tick-in{display:flex;width:max-content;animation:tick 32s linear infinite}
+.ld-tick:hover .ld-tick-in{animation-play-state:paused}
+.ld-tick span{display:inline-flex;align-items:center;gap:24px;padding-right:24px;font-family:var(--f-mono);
+  font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tx2);white-space:nowrap}
+.ld-tick b{color:var(--ac-tx);font-weight:700}
+.ld-tick em{font-style:normal;color:var(--bl-tx)}
+@keyframes tick{to{transform:translate3d(-50%,0,0)}}
+
+/* Bölüm başlıkları */
+.ld-block{padding-block:clamp(60px,9vw,110px)}
+.ld-head{margin-bottom:clamp(26px,4vw,44px)}
+.ld-kicker{font-family:var(--f-mono);font-size:.68rem;font-weight:700;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--bl-tx);margin-bottom:12px}
+.ld-h2{font-family:var(--f-display);font-weight:900;font-size:clamp(1.9rem,5.2vw,3.4rem);line-height:1;
+  letter-spacing:-.04em;text-transform:uppercase}
+.ld-lead{max-width:56ch;color:var(--tx2);margin-top:14px;font-size:clamp(.95rem,1.5vw,1.05rem)}
+
+/* Sayaçlar */
+.ld-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r3);overflow:hidden}
+.ld-stat{background:var(--surf);padding:26px 20px;text-align:center}
+.ld-stat b{display:block;font-family:var(--f-display);font-weight:900;font-size:clamp(1.9rem,4.4vw,3rem);
+  line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ld-stat span{display:block;margin-top:9px;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--tx3)}
+
+/* Karakter şeridi */
+.ld-crew{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:10px}
+.ld-crew figure{margin:0;text-align:center}
+.ld-crew img{width:100%;aspect-ratio:1;object-fit:contain;background:var(--av-bg);
+  border:1px solid var(--line);border-radius:var(--r3);image-rendering:pixelated;
+  transition:transform .3s var(--ease),border-color .3s}
+.ld-crew figure:hover img{transform:translateY(-4px);border-color:var(--ac)}
+.ld-crew figcaption{margin-top:8px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--tx3)}
+
+/* Kapanış */
+.ld-end{padding-block:clamp(70px,10vw,130px);text-align:center;border-top:1px solid var(--line)}
+.ld-end .ld-h2{max-width:16ch;margin-inline:auto}
+.ld-foot{padding:20px var(--gut) 40px;text-align:center;font-family:var(--f-mono);
+  font-size:.68rem;letter-spacing:.1em;color:var(--tx3)}
+
+/* Kaydırma açılışları — dinlenme hâli görünür */
+.rv-armed{opacity:0;transform:translate3d(var(--rv-x,0),var(--rv-y,30px),0)}
+.rv-in{opacity:1;transform:none;
+  transition:opacity .8s var(--ease) var(--rv-d,0ms),transform .9s var(--ease) var(--rv-d,0ms)}
+@media (prefers-reduced-motion:reduce){
+  .ld-h1 .wi,.ld-sub,.ld-cta,.ld-cue{animation:none}
+  .rv-armed{opacity:1!important;transform:none!important}
+  .ld-tick-in,.land-bg i{animation:none}
+}
 /* Perde kalkarken arayuz sirayla yerine oturur. Yalnizca acilista oynar. */
 @keyframes enter-down{from{opacity:0;transform:translate3d(0,-14px,0)}to{opacity:1;transform:none}}
 @keyframes enter-left{from{opacity:0;transform:translate3d(-22px,0,0)}to{opacity:1;transform:none}}
@@ -828,19 +892,74 @@ html.intro-run .pcard{animation-delay:calc(1.72s + var(--i,0)*45ms)}
 </div>
 <div class="intro-curtain" aria-hidden="true"></div>
 
-<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welH" hidden>
-  <div class="wel-in">
-    <p class="wel-eyebrow" id="welEyebrow">VANTRA · BURSA · SS26</p>
-    <h1 class="wel-h" id="welH">Hoş geldin</h1>
-    <p class="wel-p" id="welP">Ağır gramaj kapşonlular, boxy kesim tişörtler ve imza parfüm serisi. Her parça Bursa'da üretilir, doğrudan kapına gelir.</p>
-    <div class="wel-crew" id="welCrew" aria-hidden="true"></div>
-    <div class="wel-cta">
-      <button class="btn b-red b-lg" type="button" id="welEnter">Koleksiyona gir</button>
-      <button class="btn b-gho b-lg" type="button" id="welAcct">Giriş yap</button>
-    </div>
-    <button class="wel-skip" type="button" id="welSkip">Geç</button>
+<div class="land" id="land" role="region" aria-label="VANTRA giriş sayfası" hidden>
+  <div class="land-bg" aria-hidden="true"><i></i><i></i></div>
+  <button class="ico land-x" type="button" id="landX" aria-label="Girişi kapat, mağazaya geç">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+
+  <div class="land-wrap">
+    <section class="land-sec ld-hero">
+      <div class="ld-eyebrow">
+        <span class="chip chip-ac">SS26 Koleksiyonu</span>
+        <span class="mono tiny" style="color:var(--tx3)">VANTRA · BURSA · SINIRLI ÜRETİM</span>
+      </div>
+      <h1 class="ld-h1" id="ldH1">
+        <span class="ln" data-split>Sokak burada</span>
+        <span class="ln" data-split><em>başlar</em></span>
+      </h1>
+      <p class="ld-sub">Ağır gramaj kapşonlular, boxy kesim tişörtler ve imza parfüm serisi.
+        Her parça Bursa'da üretilir, aracı olmadan doğrudan kapına gelir.</p>
+      <div class="ld-cta">
+        <button class="btn b-pri b-lg" type="button" id="ldEnter">Koleksiyonu Keşfet</button>
+        <button class="btn b-gho b-lg" type="button" id="ldScroll">Aşağı bak</button>
+      </div>
+      <div class="ld-cue" aria-hidden="true"><i></i><span>kaydır</span></div>
+    </section>
+
+    <div class="ld-tick" aria-hidden="true"><div class="ld-tick-in" id="ldTick"></div></div>
+
+    <section class="land-sec ld-block" id="ldFeat">
+      <div class="ld-head rv">
+        <p class="ld-kicker">01 — Vitrinden</p>
+        <h2 class="ld-h2">Öne çıkanlar</h2>
+        <p class="ld-lead">Bu sezon en çok tercih edilen dört parça. Kartın üstüne bas, doğrudan ürüne git.</p>
+      </div>
+      <div class="pgrid" id="ldGrid"></div>
+    </section>
+
+    <section class="land-sec ld-block">
+      <div class="ld-head rv">
+        <p class="ld-kicker">02 — Rakamlarla</p>
+        <h2 class="ld-h2">Nerede duruyoruz</h2>
+      </div>
+      <div class="ld-stats rv" id="ldStats"></div>
+    </section>
+
+    <section class="land-sec ld-block">
+      <div class="ld-head rv">
+        <p class="ld-kicker">03 — Topluluk</p>
+        <h2 class="ld-h2">Karakterini seç</h2>
+        <p class="ld-lead">Hesap açtığında bu on iki karakterden biri profilin olur. Yorumlarında da o görünür.</p>
+      </div>
+      <div class="ld-crew rv" id="ldCrew"></div>
+    </section>
+
+    <section class="land-sec ld-end">
+      <div class="rv">
+        <p class="ld-kicker">Hazırsan</p>
+        <h2 class="ld-h2">Koleksiyon seni bekliyor</h2>
+        <p class="ld-lead" style="margin-inline:auto">Gezmek için hesap gerekmez. Yalnızca sipariş verirken giriş isteriz.</p>
+        <div class="ld-cta" style="justify-content:center;animation:none">
+          <button class="btn b-red b-lg" type="button" id="ldEnter2">Mağazaya gir</button>
+        </div>
+      </div>
+    </section>
+
+    <p class="ld-foot">VANTRA Tekstil ve Kozmetik Ltd. Şti. · Nilüfer / Bursa</p>
   </div>
 </div>
+
 <div class="mesh" aria-hidden="true"><i></i><i></i></div>
 <a class="skip" href="#stage" id="skipLink">İçeriğe geç</a>
 
@@ -1152,6 +1271,8 @@ function clean(v, max) {
 }
 
 var TRY = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+var NUM = new Intl.NumberFormat('tr-TR');
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)');
 var TRY2 = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', minimumFractionDigits: 2, maximumFractionDigits: 2 });
 function money(n) { return TRY.format(Math.round(n)); }
 function money2(n) { return TRY2.format(n); }
@@ -2019,48 +2140,143 @@ function requireAuth(msg, fn) {
   openGate('login', msg, fn);
 }
 
-/** Karşılama ekranı: oturumda bir kez, perde kalkarken açılır. */
-function showWelcome() {
-  var seen = false;
-  try { seen = sessionStorage.getItem('vantra:wel') === '1'; } catch (e) {}
-  if (seen) return;
-  try { sessionStorage.setItem('vantra:wel', '1'); } catch (e) {}
+/* ─────────────── Giriş sayfası ───────────────
+   Mağazanın önünde duran tanıtım katmanı. Oturumda bir kez açılır.
+   Bölümler dinlenme hâlinde görünürdür; yalnızca ilk boyada ekranın
+   altında kalanlar animasyon için "kurulur" (rv-armed).           */
+var landLayer = { veil: false, close: function () { closeLand(); } };
 
-  var w = $('#welcome');
-  var crew = clear($('#welCrew'));
-  [1, 4, 8, 9, 11, 2].forEach(function (i) { crew.appendChild(avatarSVG(i, 'b')); });
+function splitWords(node) {
+  if (node.dataset.splitDone) return;
+  node.dataset.splitDone = '1';
+  var txt = node.textContent, i = 0;
+  node.textContent = '';
+  txt.split(/(\s+)/).forEach(function (tok) {
+    if (!tok) return;
+    if (/^\s+$/.test(tok)) { node.appendChild(document.createTextNode(' ')); return; }
+    node.appendChild(el('span', { class: 'w' },
+      el('span', { class: 'wi', text: tok, style: { '--wd': (i * 70) + 'ms' } })));
+    i++;
+  });
+}
 
-  if (S.user) {
-    $('#welH').textContent = 'Tekrar hoş geldin,';
-    var first = (S.user.name || '').split(' ')[0];
-    $('#welH').appendChild(document.createTextNode(' '));
-    $('#welH').appendChild(el('em', { text: first }));
-    $('#welP').textContent = 'Sepetin ve favorilerin yerinde duruyor. Kaldığın yerden devam edebilirsin.';
-    $('#welAcct').textContent = 'Hesabıma git';
+function buildLand() {
+  /* Başlık kelimelerini böl (zaman tabanlı animasyon, kendi kendine tamamlanır) */
+  $$('#ldH1 [data-split]').forEach(function (n) {
+    var inner = n.querySelector('em');
+    if (inner) splitWords(inner); else splitWords(n);
+  });
+
+  /* Kayan şerit */
+  var tick = clear($('#ldTick'));
+  var items = ['BURSA ÜRETİMİ', '1.500 TL ÜZERİ KARGO BEDAVA', 'KART BİLGİSİ TOPLANMAZ',
+               '81 İLE TESLİMAT', '14 GÜN CAYMA HAKKI', 'HAVALE / EFT'];
+  for (var c = 0; c < 2; c++) {
+    var sp = el('span', c ? { 'aria-hidden': 'true' } : null);
+    items.forEach(function (t, k) {
+      sp.appendChild(el('b', { text: t }));
+      sp.appendChild(el('em', { text: k % 2 ? '✳' : '/' }));
+    });
+    tick.appendChild(sp);
   }
 
-  var delay = document.documentElement.classList.contains('intro-run') ? 1500 : 60;
+  /* Öne çıkan dört ürün */
+  var grid = clear($('#ldGrid'));
+  PRODUCTS.slice().sort(function (a, b) { return b.sold - a.sold; }).slice(0, 4)
+    .forEach(function (pr, k) {
+      var card = pcard(pr, k);
+      $('.popen', card).addEventListener('click', function () { closeLand(); });
+      grid.appendChild(card);
+    });
+
+  /* Rakamlar */
+  var stats = clear($('#ldStats'));
+  [[PRODUCTS.length, 'Koleksiyon parçası'], [Object.keys(COLORS).length, 'Renk seçeneği'],
+   [81, 'İle teslimat'], [24, 'Saatte kargoda', ' sa']].forEach(function (r) {
+    stats.appendChild(el('div', { class: 'ld-stat' }, [
+      el('b', { 'data-count': String(r[0]), 'data-suffix': r[2] || '', text: NUM.format(r[0]) + (r[2] || '') }),
+      el('span', { text: r[1] })
+    ]));
+  });
+
+  /* Karakterler */
+  var crew = clear($('#ldCrew'));
+  AVATARS.forEach(function (a) {
+    crew.appendChild(el('figure', null, [avatarSVG(a.id, 'b'), el('figcaption', { text: a.name })]));
+  });
+}
+
+/** Ekranın altında kalanları kur, göründükçe aç.
+    IntersectionObserver yerine doğrudan konum ölçümü: sekme arka planda
+    ya da pano gizliyken de güvenilir çalışır.                          */
+function armLand() {
+  if (RM.matches) {
+    $$('#land .rv').forEach(function (n) { n.classList.remove('rv-armed'); n.dataset.rvDone = '1'; countUpIn(n); });
+    return;
+  }
+  var line = window.innerHeight * 0.88;
+  $$('#land .rv').forEach(function (n) {
+    if (n.dataset.rvDone) return;
+    var top = n.getBoundingClientRect().top;
+    if (top < line) {
+      n.dataset.rvDone = '1';
+      n.classList.remove('rv-armed');
+      n.classList.add('rv-in');
+      countUpIn(n);
+    } else if (!n.classList.contains('rv-armed')) {
+      n.classList.add('rv-armed');
+    }
+  });
+}
+
+/** Sayaçlar: HTML'de son değer zaten yazılı, animasyon süsleme. */
+function countUpIn(scope) {
+  $$('[data-count]', scope).forEach(function (n) {
+    if (n.dataset.counted) return;
+    n.dataset.counted = '1';
+    if (RM.matches) return;
+    var to = parseFloat(n.getAttribute('data-count')), suf = n.getAttribute('data-suffix') || '', t0 = 0;
+    function tick(t) {
+      if (!t0) t0 = t;
+      var pr = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - pr, 4);
+      n.textContent = NUM.format(Math.round(to * e)) + suf;
+      if (pr < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+function showLand() {
+  var seen = false;
+  try { seen = sessionStorage.getItem('vantra:land') === '1'; } catch (e) {}
+  if (seen) return;
+  try { sessionStorage.setItem('vantra:land', '1'); } catch (e) {}
+
+  buildLand();
+  var L = $('#land');
+  var delay = document.documentElement.classList.contains('intro-run') ? 1450 : 40;
   setTimeout(function () {
-    w.hidden = false;
-    requestAnimationFrame(function () { w.classList.add('on'); });
-    pushLayer(welLayer);
-    setTimeout(function () { $('#welEnter').focus(); }, 620);
+    L.hidden = false;
+    void L.offsetWidth;              /* reflow: gecis calissin */
+    L.classList.add('on');           /* rAF kullanma: sekme arka plandayken calismiyor */
+    armLand();
+    pushLayer(landLayer);
+    L.addEventListener('scroll', armLand, { passive: true });
   }, delay);
 }
-var welLayer = { veil: false, close: function () { closeWelcome(); } };
-function closeWelcome() {
-  var w = $('#welcome');
-  if (w.hidden) return;
-  w.classList.remove('on');
-  popLayer(welLayer);
-  setTimeout(function () { if (!w.classList.contains('on')) w.hidden = true; }, 560);
+function closeLand() {
+  var L = $('#land');
+  if (L.hidden) return;
+  L.classList.remove('on');
+  popLayer(landLayer);
+  setTimeout(function () { if (!L.classList.contains('on')) L.hidden = true; }, 520);
 }
-$('#welEnter').addEventListener('click', closeWelcome);
-$('#welSkip').addEventListener('click', closeWelcome);
-$('#welAcct').addEventListener('click', function () {
-  closeWelcome();
-  if (S.user) go('account', { acctTab: 'profile' });
-  else setTimeout(function () { openGate('login', null, function () { go('account'); }); }, 400);
+$('#landX').addEventListener('click', closeLand);
+$('#ldEnter').addEventListener('click', closeLand);
+$('#ldEnter2').addEventListener('click', closeLand);
+$('#ldScroll').addEventListener('click', function () {
+  var t = $('#ldFeat');
+  if (t) $('#land').scrollTo({ top: t.offsetTop - 20, behavior: RM.matches ? 'auto' : 'smooth' });
 });
 
 function enterApp() {
@@ -2069,7 +2285,7 @@ function enterApp() {
   go('catalog');
   if (!LS.get('cookieOk', false)) $('#cookie').hidden = false;
   if (!SUBTLE) $('#insecureBar').hidden = false;
-  showWelcome();
+  showLand();
 }
 function logout() {
   saveAll();
