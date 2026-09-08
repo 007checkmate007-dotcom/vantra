@@ -169,6 +169,30 @@ table{border-collapse:collapse}
   .demo-bar .btn{padding:4px 10px;font-size:.72rem}
   .demo-bar svg:first-child{width:14px;height:14px}
 }
+/* ── Açılış sekansı ──────────────────────────────────────────────
+   Tamamı CSS zamanlı: JS çalışmasa bile perde kendini kaldırır,
+   içerik hiçbir koşulda arkada kilitli kalmaz. Toplam 1,75 sn.
+   Oturumda bir kez oynar; tekrar tekrar bekletmez.               */
+.intro{position:fixed;inset:0;z-index:400;display:grid;place-items:center;background:var(--bg);
+  animation:intro-hide .01s linear 1.32s forwards}
+@keyframes intro-hide{to{opacity:0;visibility:hidden}}
+.intro-in{display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 24px}
+.intro-mark{width:min(280px,62vw);height:auto;color:var(--tx);
+  clip-path:inset(0 100% 0 0);animation:intro-wipe .62s var(--ease) .1s forwards}
+@keyframes intro-wipe{to{clip-path:inset(0 0 0 0)}}
+.intro-bar{width:min(280px,62vw);height:2px;background:var(--line);overflow:hidden;border-radius:2px}
+.intro-bar span{display:block;height:100%;background:var(--ac);transform:scaleX(0);transform-origin:left;
+  animation:intro-fill .82s var(--ease) .14s forwards}
+@keyframes intro-fill{to{transform:scaleX(1)}}
+.intro-tag{font-family:var(--f-mono);font-size:.66rem;font-weight:700;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--tx3);opacity:0;animation:intro-fade .4s ease .52s forwards}
+@keyframes intro-fade{to{opacity:1}}
+.intro-curtain{position:fixed;inset:0;z-index:401;background:var(--ac);pointer-events:none;
+  transform:translate3d(0,101%,0);animation:intro-sweep .82s var(--ease) .95s forwards}
+@keyframes intro-sweep{40%{transform:translate3d(0,0,0)}100%{transform:translate3d(0,-101%,0);visibility:hidden}}
+html.no-intro .intro,html.no-intro .intro-curtain{display:none}
+@media (prefers-reduced-motion:reduce){.intro,.intro-curtain{display:none}}
+
 .mesh{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .mesh i{position:absolute;border-radius:50%;filter:blur(90px);display:block}
 .mesh i:nth-child(1){width:48vmax;height:48vmax;left:-14vmax;top:-18vmax;background:var(--m1);animation:dr1 34s var(--ease) infinite}
@@ -739,6 +763,18 @@ table{border-collapse:collapse}
 </style>
 </head>
 <body>
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-in">
+    <svg class="intro-mark" viewBox="0 0 210 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="5" width="30" height="30" rx="8" fill="currentColor"/>
+      <path class="lg-bg" d="M8 13l7 15 7-15" fill="none" stroke-width="3.4" stroke-linecap="square" stroke-linejoin="miter"/>
+      <text class="lg-t" x="39" y="29" font-size="25" fill="currentColor">VANTRA</text>
+    </svg>
+    <div class="intro-bar"><span></span></div>
+    <p class="intro-tag">Bursa · Sokak Giyimi</p>
+  </div>
+</div>
+<div class="intro-curtain" aria-hidden="true"></div>
 <div class="mesh" aria-hidden="true"><i></i><i></i></div>
 <a class="skip" href="#stage" id="skipLink">İçeriğe geç</a>
 
@@ -2037,6 +2073,14 @@ $('#homeBtn').addEventListener('click', function () { setFilter({ cat: null, sub
     var v = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
     apply(v); LS.set('theme', v);
   });
+})();
+
+/* Açılış sekansı yalnızca oturumun ilk açılışında oynar. */
+(function intro() {
+  var seen = false;
+  try { seen = sessionStorage.getItem('vantra:intro') === '1'; } catch (e) {}
+  if (seen) document.documentElement.classList.add('no-intro');
+  else { try { sessionStorage.setItem('vantra:intro', '1'); } catch (e) {} }
 })();
 
 /* Demo şeridi */
