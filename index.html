@@ -9,8 +9,8 @@
 <!-- Icerik Guvenlik Politikasi: satir ici stil/script serbest, dis kaynak yalnizca Google Fonts.
      Sunucuda ayni politikayi HTTP basligi olarak da gonderin. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'">
-<meta name="description" content="VANTRA — Bursa merkezli sokak giyimi ve parfüm mağazası. Ağır gramaj kapşonlu, boxy tişört, imza parfüm serisi. Güvenli ödeme, kart bilgisi saklanmaz.">
-<title>VANTRA — Mağaza</title>
+<meta name="description" content="VANTRA — seçilmiş sokak giyimi. Ağır gramaj kapşonlu, boxy tişört ve sweatshirt. Güvenli ödeme, kart bilgisi saklanmaz, 14 gün cayma hakkı.">
+<title>VANTRA — Sokak Giyimi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -908,8 +908,8 @@ html.intro-run .pcard{animation-delay:calc(1.72s + var(--i,0)*45ms)}
         <span class="ln" data-split>Sokak burada</span>
         <span class="ln" data-split><em>başlar</em></span>
       </h1>
-      <p class="ld-sub">Ağır gramaj kapşonlular, boxy kesim tişörtler ve imza parfüm serisi.
-        Her parça Bursa'da üretilir, aracı olmadan doğrudan kapına gelir.</p>
+      <p class="ld-sub">Ağır gramaj kapşonlular, boxy kesim tişörtler ve sweatshirtler.
+        Seçtiğimiz parçalar, aracı kalabalığı olmadan doğrudan kapına gelir.</p>
       <div class="ld-cta">
         <button class="btn b-pri b-lg" type="button" id="ldEnter">Koleksiyonu Keşfet</button>
         <button class="btn b-gho b-lg" type="button" id="ldScroll">Aşağı bak</button>
@@ -956,7 +956,7 @@ html.intro-run .pcard{animation-delay:calc(1.72s + var(--i,0)*45ms)}
       </div>
     </section>
 
-    <p class="ld-foot">VANTRA Tekstil ve Kozmetik Ltd. Şti. · Nilüfer / Bursa</p>
+    <p class="ld-foot">[Ticari unvan] · Nilüfer / Bursa</p>
   </div>
 </div>
 
@@ -981,7 +981,7 @@ html.intro-run .pcard{animation-delay:calc(1.72s + var(--i,0)*45ms)}
       <p>VANTRA kapalı bir mağaza. Hesabını aç, kendine bir avatar seç, koleksiyona gir. Siparişlerin, adreslerin ve favorilerin hesabına bağlı kalır.</p>
       <div class="gate-crew" id="gateCrew" aria-hidden="true"></div>
     </div>
-    <p class="mono tiny dim">VANTRA Tekstil ve Kozmetik Ltd. Şti. · Bursa · Tüm bağlantılar TLS ile şifrelenir</p>
+    <p class="mono tiny dim">[Ticari unvan] · Bursa · Tüm bağlantılar TLS ile şifrelenir</p>
   </div>
 
   <div class="gate-panel">
@@ -1532,7 +1532,7 @@ var DEMO = true;
 
 var SHOP = {
   name: 'VANTRA',
-  legal: 'VANTRA Tekstil ve Kozmetik Limited Şirketi',
+  legal: '[Ticari unvan — mali müşavirin verdiği resmî ad]',
   /* TODO: yayına almadan önce bu blok gerçek bilgilerle doldurulmalı */
   mersis: '0000000000000000',
   tax: 'Nilüfer V.D. · 000 000 0000',
@@ -1582,10 +1582,6 @@ var CATS = [
       { id: 'tisort',   n: 'Tişört' },
       { id: 'sweat',    n: 'Sweatshirt' }
   ]},
-  { id: 'parfum', n: 'Parfüm', subs: [
-      { id: 'edp',      n: 'Eau de Parfum' },
-      { id: 'set',      n: 'Set & Minyatür' }
-  ]}
 ];
 var SUBNAME = {};
 CATS.forEach(function (c) { c.subs.forEach(function (s) { SUBNAME[s.id] = { n: s.n, top: c.id, topN: c.n }; }); });
@@ -1607,13 +1603,13 @@ function fullStock(colors, sizes, def, over) {
 var PRODUCTS = [
   { id: 'vh1', sub: 'kapsonlu', kind: 'hoodie', name: 'Gece Vardiyası', sub2: 'Oversize Kapşonlu', mark: 'GECE',
     price: 1849, old: 2190, added: '2026-08-14', sold: 412, ink: '#CBEF3C',
-    desc: '320 gr üç iplik şardonlu kumaş, sırtta tam boy serigrafi ve göğüste küçük mühür baskı. Gece vardiyasında çalışanlara, sabaha kadar ayakta kalanlara.',
+    desc: '320 gr üç iplik şardonlu kumaş. Sırtta tam boy serigrafi, göğüste küçük mühür baskı. Gece vardiyasında çalışanlara, sabaha kadar ayakta kalanlara.',
     colors: ['siyah', 'antrasit', 'kum', 'haki', 'bordo', 'lacivert'], sizes: SIZES,
     stock: fullStock(['siyah', 'antrasit', 'kum', 'haki', 'bordo', 'lacivert'], SIZES, 12,
       [['kum', 'S', 0], ['kum', 'XXL', 2], ['bordo', 'M', 3], ['lacivert', 'XXL', 0], ['haki', 'S', 1]]),
     specs: [['Kumaş', '320 gr üç iplik · %85 pamuk %15 polyester'], ['Kalıp', 'Unisex oversize, düşük omuz'],
             ['Baskı', 'Su bazlı serigrafi, 160°C ısıl sabitleme'], ['Detay', 'Çift katlı kapşon, ribana manşet ve etek'],
-            ['Bakım', '30°C tersten yıkama, ütü baskıya değmemeli'], ['Menşei', 'Türkiye · Bursa']] },
+            ['Bakım', '30°C tersten yıkama, ütü baskıya değmemeli']] },
 
   { id: 'vh2', sub: 'kapsonlu', kind: 'hoodie', name: 'Asfalt Çiçeği', sub2: 'Kabartma Baskı Kapşonlu', mark: 'ASFALT',
     price: 1749, old: 0, added: '2026-07-02', sold: 288, ink: '#EFEBDF',
@@ -1622,7 +1618,7 @@ var PRODUCTS = [
     stock: fullStock(['gri', 'siyah', 'beyaz', 'orman', 'mor'], SIZES, 9, [['beyaz', 'S', 0], ['mor', 'XXL', 1], ['gri', 'L', 4]]),
     specs: [['Kumaş', '320 gr üç iplik şardonlu'], ['Kalıp', 'Regular, kanguru cep'],
             ['Baskı', 'Kabartma (puff) serigrafi'], ['Detay', 'Metal kuş gözü, pamuk büzgü ipi'],
-            ['Bakım', '30°C tersten yıkama'], ['Menşei', 'Türkiye · Bursa']] },
+            ['Bakım', '30°C tersten yıkama']] },
 
   { id: 'vh3', sub: 'kapsonlu', kind: 'hoodie', name: 'Kod Adı Poyraz', sub2: 'Fermuarlı Kapşonlu', mark: 'POYRAZ',
     price: 2149, old: 2490, added: '2026-09-01', sold: 96, ink: '#3BE8FF',
@@ -1631,7 +1627,7 @@ var PRODUCTS = [
     stock: fullStock(['siyah', 'lacivert', 'antrasit', 'orman'], SIZES, 7, [['orman', 'S', 0], ['orman', 'M', 0], ['siyah', 'XXL', 2]]),
     specs: [['Kumaş', '340 gr ağır üç iplik'], ['Kalıp', 'Regular, hafif uzun boy'],
             ['Fermuar', 'YKK metal, çift yönlü'], ['Detay', 'Kolda 3M reflektif şerit, yan cep'],
-            ['Bakım', '30°C tersten yıkama, kurutma makinesi düşük ısı'], ['Menşei', 'Türkiye · Bursa']] },
+            ['Bakım', '30°C tersten yıkama, kurutma makinesi düşük ısı']] },
 
   { id: 'vs1', sub: 'sweat', kind: 'hoodie', name: 'Sessiz Kalabalık', sub2: 'Bisiklet Yaka Sweatshirt', mark: 'SESSİZ',
     price: 1590, old: 0, added: '2026-06-18', sold: 341, ink: '#CBEF3C',
@@ -1640,7 +1636,7 @@ var PRODUCTS = [
     stock: fullStock(['mor', 'siyah', 'kum', 'gri', 'kahve', 'toz'], SIZES, 10, [['toz', 'S', 2], ['kahve', 'XXL', 0], ['mor', 'L', 5]]),
     specs: [['Kumaş', '320 gr üç iplik'], ['Kalıp', 'Kısa boy boxy'],
             ['Baskı', 'Ton sürtün (tone-on-tone)'], ['Detay', 'Ön yıkamalı, çekmez'],
-            ['Bakım', '30°C tersten yıkama'], ['Menşei', 'Türkiye · Bursa']] },
+            ['Bakım', '30°C tersten yıkama']] },
 
   { id: 'vs2', sub: 'sweat', kind: 'hoodie', name: 'Nilüfer Ekspres', sub2: 'Yarım Fermuar Sweatshirt', mark: 'NİLÜFER',
     price: 1690, old: 1890, added: '2026-08-28', sold: 154, ink: '#EFEBDF',
@@ -1649,7 +1645,7 @@ var PRODUCTS = [
     stock: fullStock(['lacivert', 'antrasit', 'bebe', 'kum', 'orman'], SIZES, 8, [['bebe', 'XXL', 0], ['bebe', 'XL', 1]]),
     specs: [['Kumaş', '300 gr üç iplik'], ['Kalıp', 'Regular'],
             ['Fermuar', 'YKK, yarım boy'], ['Detay', 'Dokuma marka etiketi, yan yırtmaç'],
-            ['Bakım', '30°C tersten yıkama'], ['Menşei', 'Türkiye · Bursa']] },
+            ['Bakım', '30°C tersten yıkama']] },
 
   { id: 'vt1', sub: 'tisort', kind: 'tee', name: 'Beton Bahçe', sub2: 'Oversize Tişört', mark: 'BETON',
     price: 749, old: 899, added: '2026-05-30', sold: 903, ink: '#CBEF3C',
@@ -1659,7 +1655,7 @@ var PRODUCTS = [
       [['asit', 'S', 0], ['asit', 'M', 2], ['hardal', 'XXL', 1], ['toz', 'S', 3]]),
     specs: [['Kumaş', '240 gr %100 taranmış pamuk'], ['Kalıp', 'Oversize, düşük omuz'],
             ['Baskı', 'Su bazlı DTG'], ['Detay', 'Boyun ribana çift dikiş, etiketsiz iç yaka'],
-            ['Bakım', '30°C tersten yıkama'], ['Menşei', 'Türkiye · Bursa']] },
+            ['Bakım', '30°C tersten yıkama']] },
 
   { id: 'vt2', sub: 'tisort', kind: 'tee', name: 'Son Minibüs', sub2: 'Boxy Tişört', mark: 'MİNİBÜS',
     price: 699, old: 0, added: '2026-04-11', sold: 617, ink: '#EFEBDF',
@@ -1668,7 +1664,7 @@ var PRODUCTS = [
     stock: fullStock(['kiremit', 'kum', 'siyah', 'lacivert', 'haki', 'beyaz'], SIZES, 11, [['kiremit', 'XXL', 0], ['haki', 'S', 2]]),
     specs: [['Kumaş', '220 gr penye'], ['Kalıp', 'Kısa boy boxy'],
             ['Baskı', 'Tek renk serigrafi'], ['Detay', 'Etiketsiz iç yaka baskı'],
-            ['Bakım', '30°C tersten yıkama'], ['Menşei', 'Türkiye · Bursa']] },
+            ['Bakım', '30°C tersten yıkama']] },
 
   { id: 'vt3', sub: 'tisort', kind: 'tee', name: 'Kırık Anten', sub2: 'Dört Renk Baskılı Tişört', mark: 'ANTEN',
     price: 829, old: 0, added: '2026-07-21', sold: 205, ink: '#3BE8FF',
@@ -1677,7 +1673,7 @@ var PRODUCTS = [
     stock: fullStock(['antrasit', 'siyah', 'beyaz', 'bebe', 'gri'], SIZES, 6, [['bebe', 'S', 0], ['bebe', 'M', 1], ['gri', 'XXL', 0]]),
     specs: [['Kumaş', '200 gr ince penye'], ['Kalıp', 'Regular'],
             ['Baskı', '4 renk ayrım serigrafi'], ['Detay', 'Vintage yıkama, yumuşak tuşe'],
-            ['Bakım', '30°C tersten yıkama'], ['Menşei', 'Türkiye · Bursa']] },
+            ['Bakım', '30°C tersten yıkama']] },
 
   { id: 'vt4', sub: 'tisort', kind: 'tee', name: 'Yaya Geçidi', sub2: 'Ağır Gramaj Tişört', mark: 'YAYA',
     price: 899, old: 999, added: '2026-09-04', sold: 78, ink: '#17181C',
@@ -1686,47 +1682,7 @@ var PRODUCTS = [
     stock: fullStock(['beyaz', 'kum', 'siyah', 'bordo', 'orman', 'toz'], SIZES, 5, [['bordo', 'S', 0], ['bordo', 'M', 0], ['orman', 'XXL', 1]]),
     specs: [['Kumaş', '260 gr ağır penye'], ['Kalıp', 'Regular, kalın ribana yaka'],
             ['Örgü', 'Yan dikişsiz tüp örgü'], ['Detay', 'Ön yıkamalı, çekmez'],
-            ['Bakım', '30°C tersten yıkama'], ['Menşei', 'Türkiye · Bursa']] },
-
-  { id: 'vp1', sub: 'edp', kind: 'bottle', name: 'Duman', sub2: 'Eau de Parfum', mark: 'DUMAN',
-    price: 2450, old: 0, added: '2026-06-05', sold: 372, ink: '#CBEF3C',
-    desc: 'İs, kavrulmuş sedir ve deri. Kışın akşamüstü yanan sobanın kokusu — ama şık hâli.',
-    colors: ['kahve', 'siyah', 'hardal'], sizes: ['30 ml', '50 ml', '100 ml'], isVolume: true,
-    priceBy: { '30 ml': 1690, '50 ml': 2450, '100 ml': 3390 },
-    stock: fullStock(['kahve', 'siyah', 'hardal'], ['30 ml', '50 ml', '100 ml'], 9, [['hardal', '100 ml', 0]]),
-    specs: [['Konsantrasyon', 'Eau de Parfum · %20 esans'], ['Üst nota', 'Karabiber, bergamot'],
-            ['Orta nota', 'Kavrulmuş sedir, is akoru'], ['Dip nota', 'Deri, vetiver, tütsü'],
-            ['Kalıcılık', '7–9 saat'], ['Menşei', 'Türkiye · Bursa']] },
-
-  { id: 'vp2', sub: 'edp', kind: 'bottle', name: 'Yağmurdan Sonra', sub2: 'Eau de Parfum', mark: 'YAĞMUR',
-    price: 2290, old: 2590, added: '2026-05-12', sold: 448, ink: '#A8C6D8',
-    desc: 'Islak asfalt, yosun ve limon kabuğu. Temmuz sağanağından hemen sonrası.',
-    colors: ['bebe', 'orman', 'beyaz'], sizes: ['30 ml', '50 ml', '100 ml'], isVolume: true,
-    priceBy: { '30 ml': 1590, '50 ml': 2290, '100 ml': 3190 },
-    stock: fullStock(['bebe', 'orman', 'beyaz'], ['30 ml', '50 ml', '100 ml'], 12, [['beyaz', '30 ml', 2]]),
-    specs: [['Konsantrasyon', 'Eau de Parfum · %18 esans'], ['Üst nota', 'Limon kabuğu, nane'],
-            ['Orta nota', 'Petrichor akoru, yosun'], ['Dip nota', 'Mineral misk, ambroksan'],
-            ['Kalıcılık', '6–8 saat'], ['Menşei', 'Türkiye · Bursa']] },
-
-  { id: 'vp3', sub: 'edp', kind: 'bottle', name: 'Gece Yarısı Ekspresi', sub2: 'Eau de Parfum', mark: 'EKSPRES',
-    price: 3150, old: 0, added: '2026-08-30', sold: 121, ink: '#FF4A1C',
-    desc: 'Vanilya, reçine ve tütün. Ağır, tatlı, gece için. Az sık — kendini belli eder.',
-    colors: ['mor', 'siyah', 'bordo'], sizes: ['50 ml', '100 ml'], isVolume: true,
-    priceBy: { '50 ml': 2790, '100 ml': 3150 },
-    stock: fullStock(['mor', 'siyah', 'bordo'], ['50 ml', '100 ml'], 6, [['bordo', '100 ml', 0], ['mor', '50 ml', 2]]),
-    specs: [['Konsantrasyon', 'Eau de Parfum · %22 esans'], ['Üst nota', 'Rom akoru, tarçın'],
-            ['Orta nota', 'Tütün yaprağı, benzoin'], ['Dip nota', 'Bourbon vanilya, reçine'],
-            ['Kalıcılık', '8–10 saat'], ['Menşei', 'Türkiye · Bursa']] },
-
-  { id: 'vp4', sub: 'set', kind: 'bottle', name: 'Üçlü Keşif Seti', sub2: 'Minyatür Set 3 × 10 ml', mark: 'SET',
-    price: 1290, old: 1590, added: '2026-07-09', sold: 526, ink: '#CBEF3C',
-    desc: 'Duman, Yağmurdan Sonra ve Gece Yarısı Ekspresi\'nin 10 ml\'lik seyahat şişeleri. Karar vermeden önce dene.',
-    colors: ['siyah', 'kum', 'kahve'], sizes: ['Tek boy'], isVolume: true,
-    priceBy: { 'Tek boy': 1290 },
-    stock: fullStock(['siyah', 'kum', 'kahve'], ['Tek boy'], 20, []),
-    specs: [['İçerik', '3 × 10 ml Eau de Parfum'], ['Kutu', 'Mıknatıslı sert kapak, geri dönüştürülmüş karton'],
-            ['Kullanım', 'El bagajı uyumlu'], ['Not', 'Set bedeli, tam boy alımında düşülmez'],
-            ['Kalıcılık', 'Şişeye göre 6–10 saat'], ['Menşei', 'Türkiye · Bursa']] }
+            ['Bakım', '30°C tersten yıkama']] }
 ];
 var PMAP = {};
 PRODUCTS.forEach(function (p) { PMAP[p.id] = p; p.cat = SUBNAME[p.sub].top; p.catN = SUBNAME[p.sub].topN; p.subN = SUBNAME[p.sub].n; });
@@ -1739,10 +1695,6 @@ var REVIEWS = [
   { p: 'vt1', av: 2,  n: 'Deniz Y.',  r: 5, d: '2026-09-01', t: 'Üçüncü kez alıyorum. 240 gram gerçekten hissediliyor, ucuz tişört gibi durmuyor.', v: 'Siyah / L', ok: 58 },
   { p: 'vt1', av: 8,  n: 'Merve S.',  r: 4, d: '2026-08-15', t: 'Asit yeşili çok canlı, beklediğim gibi. Tek eksik: S bedende omuz biraz fazla düşük kalıyor.', v: 'Asit Yeşili / S', ok: 19 },
   { p: 'vt1', av: 11, n: 'Kaan D.',   r: 3, d: '2026-07-28', t: 'Ürün iyi ama ilk yıkamada bir miktar çekti. Yine de giyilebilir durumda.', v: 'Beyaz / M', ok: 31 },
-  { p: 'vp1', av: 3,  n: 'Onur B.',   r: 5, d: '2026-08-19', t: 'Gerçekten is ve odun kokusu var, tatlı değil. Akşam sıkıyorum, ertesi sabah gömlekte hâlâ duruyor.', v: '50 ml', ok: 44 },
-  { p: 'vp1', av: 7,  n: 'İpek R.',   r: 4, d: '2026-07-11', t: 'İlk on dakika biraz sert açılıyor, sonra oturuyor. Kışlık.', v: '100 ml', ok: 16 },
-  { p: 'vp2', av: 5,  n: 'Cem A.',    r: 5, d: '2026-08-02', t: 'Adı gibi kokuyor. Yağmur sonrası asfalt tarifi abartı değilmiş.', v: '50 ml', ok: 37 },
-  { p: 'vp4', av: 9,  n: 'Zeynep O.', r: 5, d: '2026-08-25', t: 'Hangisini alacağıma karar veremiyordum, set tam bunun için. Sonunda Duman\'da karar kıldım.', v: 'Tek boy', ok: 62 },
   { p: 'vh3', av: 1,  n: 'Mert Ç.',   r: 4, d: '2026-09-03', t: 'Fermuar kaliteli, reflektif şerit gece gerçekten parlıyor. Kalıp biraz uzun.', v: 'Siyah / L', ok: 8 },
   { p: 'vt2', av: 0,  n: 'Ali R.',    r: 5, d: '2026-06-20', t: 'Boxy kalıbı tam istediğim gibi. Kiremit rengi bayağı sağlam duruyor.', v: 'Kiremit / M', ok: 27 },
   { p: 'vs1', av: 11, n: 'Ece T.',    r: 4, d: '2026-07-14', t: 'Ton sürtün baskı çok şık, ışıkta fark ediliyor. Toz pembe düşündüğümden daha soluk.', v: 'Toz Pembe / M', ok: 14 },
@@ -1753,8 +1705,6 @@ var QUESTIONS = [
   { p: 'vh1', q: 'Kapşonun içi de şardonlu mu, yoksa sadece gövde mi?', a: 'Kapşonun iç katmanı da şardonlu. Toplamda çift kat olduğu için rüzgâr geçirmez.', n: 'Furkan A.', d: '2026-08-11' },
   { p: 'vh1', q: '1.75 boy 70 kilo için hangi beden önerirsiniz?', a: 'Normal duruş için M, bol duruş için L öneriyoruz. Ürün sayfasındaki "Bedenimi bul" aracını da kullanabilirsiniz.', n: 'Yasemin K.', d: '2026-07-25' },
   { p: 'vt1', q: 'Beyaz renkte baskı arkadan görünüyor mu?', a: 'Hayır. 240 gr kumaşta baskı arkaya vurmaz.', n: 'Serkan M.', d: '2026-08-30' },
-  { p: 'vp1', q: 'Kadınlar da kullanabilir mi?', a: 'Evet, seri tamamen unisex. Duman özellikle ten üzerinde kişiye göre farklı açılıyor.', n: 'Buse E.', d: '2026-08-04' },
-  { p: 'vp4', q: 'Set içindeki şişeler dolduruabilir mi?', a: 'Şişeler tek kullanımlık sprey kafalıdır, doldurmaya uygun değildir.', n: 'Tolga N.', d: '2026-07-19' }
 ];
 
 var COUPONS = {
@@ -1766,8 +1716,7 @@ var COUPONS = {
 
 var SHIPPING = [
   { id: 'std',  n: 'Standart Kargo',  d: 'Yurtiçi/Aras · 2–4 iş günü', fee: 79,  days: 4 },
-  { id: 'fast', n: 'Hızlı Kargo',     d: 'MNG Express · 1–2 iş günü',  fee: 149, days: 2 },
-  { id: 'shop', n: 'Mağazadan Teslim', d: 'Nilüfer / Bursa showroom · hazır olunca haber veririz', fee: 0, days: 1 }
+  { id: 'fast', n: 'Hızlı Kargo',     d: 'MNG Express · 1–2 iş günü',  fee: 149, days: 2 }
 ];
 var ORDER_STEPS = ['Hazırlanıyor', 'Kargoya verildi', 'Dağıtımda', 'Teslim edildi'];
 /* ─────────────────────── E. DURUM ─────────────────────── */
@@ -2613,7 +2562,7 @@ function renderCatalog() {
   side.appendChild(el('div', { class: 'fgrp' }, [el('h3', { text: 'Renk' }), swRow]));
 
   var szRow = el('div', { class: 'size-row' });
-  SIZES.concat(['30 ml', '50 ml', '100 ml']).forEach(function (s) {
+  SIZES.forEach(function (s) {
     var on = S.filters.sizes.indexOf(s) > -1;
     szRow.appendChild(el('button', { class: 'szb', type: 'button', 'aria-pressed': on.toString(), text: s,
       onclick: function () {
@@ -3073,9 +3022,7 @@ function renderProduct() {
     });
     box.appendChild(ul);
     box.appendChild(el('p', { class: 'box', text: SHOP.freeShip ? money(SHOP.freeShip) + ' ve üzeri siparişlerde standart kargo ücretsizdir.' : '' }));
-    box.appendChild(el('p', { text: p.kind === 'bottle'
-      ? 'Parfümlerde jelatini açılmamış ürünler 14 gün içinde iade edilebilir. Ambalajı açılmış parfümler hijyen gerekçesiyle Mesafeli Sözleşmeler Yönetmeliği m.15/1-(ğ) uyarınca cayma hakkı dışındadır.'
-      : 'Teslimattan itibaren 14 gün içinde, kullanılmamış ve etiketleri sökülmemiş ürünlerde cayma hakkın vardır. Beden değişiminde tek yön kargoyu biz karşılarız.' }));
+    box.appendChild(el('p', { text: 'Teslimattan itibaren 14 gün içinde, kullanılmamış ve etiketleri sökülmemiş ürünlerde cayma hakkın vardır. Beden değişiminde tek yön kargoyu biz karşılarız.' }));
     box.appendChild(el('button', { class: 'btn b-gho b-sm', type: 'button', text: 'İade politikasının tamamını oku',
       style: { 'align-self': 'flex-start' }, onclick: function () { go('docs', { docTab: 'iade' }); } }));
   });
@@ -4185,15 +4132,11 @@ function openReturnModal(o) {
   });
   var note = el('textarea', { class: 'txt', maxlength: 300, placeholder: 'Eklemek istediğin bir şey var mı?' });
   var errP = el('p', { class: 'err' }, [ic(['M12 3L2.5 20h19z', 'M12 9.5v4.2'], 2.4), el('span', { text: '' })]);
-  var hasPerfume = o.items.some(function (it) { return PMAP[it.pid].kind === 'bottle'; });
   openModal('İade talebi · ' + o.code, [
     el('div', { class: 'fld' }, [el('span', { class: 'lbl', text: 'İade edilecek ürünler' }), items]),
     el('div', { class: 'fld' }, [el('label', { for: 'rt-reason', text: 'İade nedeni' }), sel]),
     el('div', { class: 'fld' }, [el('span', { class: 'lbl', text: 'Not (isteğe bağlı)' }), note]),
     errP,
-    hasPerfume ? el('p', { class: 'box', style: { padding: '12px', 'border-radius': 'var(--r2)', background: 'var(--surf2)',
-      'border-left': '3px solid var(--warn)', 'font-size': '.83rem' },
-      text: 'Uyarı: Jelatini açılmış parfümler hijyen gerekçesiyle iade alınamaz (Mesafeli Sözleşmeler Yönetmeliği m.15/1-ğ). Ayıplı ürün ve yanlış gönderim bu istisnanın dışındadır.' }) : null,
     el('p', { class: 'hint', text: 'Talebin 1 iş günü içinde değerlendirilir. Onaylanırsa kargo kodu gönderilir, iade ücreti bize aittir.' })
   ], [
     el('button', { class: 'btn b-gho', type: 'button', text: 'Vazgeç', onclick: closeModal }),
@@ -4413,20 +4356,29 @@ var DOCS = [
       el('p', { text: 'Şu an fotoğraf olmadığı için her ürün için vektörle çizilmiş bir yer tutucu üretiliyor ve üzerine "ÖRNEK GÖRSEL" damgası basılıyor. Gerçek fotoğrafınızı eklemek için ürüne photos alanını verin:' }),
       el('p', { class: 'box', text: "photos: ['gorseller/urun-1.jpg', 'gorseller/urun-2.jpg', 'gorseller/urun-3.jpg']" }),
       el('p', { text: 'Dosya yolu ya da data URI kabul edilir. Alan doluysa çizim ve damga otomatik devre dışı kalır. Önerilen ölçü: 4:5 oranında, en az 1000×1250 piksel.' }),
-      el('h3', { text: '4 · Yorum ve sorular' }),
+      el('h3', { text: '4 · Ürün beyanları — dikkat' }),
+      el('p', { class: 'box', text: 'Ürünleri kendin üretmiyorsan sitede "biz üretiyoruz", "atölyemizde basıyoruz", "menşei: Bursa" gibi ifadeler kullanma. Bunlar yanıltıcı beyandır ve Ticari Reklam ve Haksız Ticari Uygulamalar Yönetmeliği kapsamında ceza konusudur. Ürünün kumaşını, baskı tipini ve ölçüsünü yazabilirsin — bunlar ürünün özelliğidir, üretim iddiası değildir.' }),
+      el('h3', { text: '5 · Yorum ve sorular' }),
       el('p', { text: 'REVIEWS ve QUESTIONS dizilerindeki içerikler örnektir ve "Örnek yorum" etiketiyle gösterilir. Uydurma müşteri yorumu yayınlamak yanıltıcı ticari uygulamadır; bu dizileri boşaltın ve yalnızca gerçek müşterilerin yazdığı yorumları bırakın.' }),
-      el('h3', { text: '5 · Hukuki metinler' }),
-      el('p', { text: 'Mesafeli satış sözleşmesi, gizlilik politikası, KVKK aydınlatma metni ve iade politikası taslak hâlindedir. Yayına almadan önce bir avukata işletmenize göre uyarlatın. Ayrıca e-ticaret için ETBİS kaydı ve doğrulama bağlantısı yasal zorunluluktur.' }),
-      el('h3', { text: '6 · Sipariş sana nasıl ulaşır?' }),
+      el('h3', { text: '6 · Hukuki metinler' }),
+      el('p', { text: 'Mesafeli satış sözleşmesi, gizlilik politikası, KVKK aydınlatma metni ve iade politikası taslak hâlindedir. Yayına almadan önce bir avukata işletmenize göre uyarlatın.' }),
+      el('p', { text: 'Satışa başlamadan önce tamamlanması gereken yasal adımlar:' }),
+      UL(['Vergi mükellefiyeti — pratikte şahıs şirketi. 18 yaşından küçükseniz kendi adınıza açamazsınız; işletme bir velinin adına kurulur.',
+          'ETBİS kaydı — kendi sitesinden satış yapan herkes için zorunlu, ücretsiz, e-Devlet üzerinden. Kayıt sonrası doğrulama görselini siteye ekleyin.',
+          'E-arşiv fatura altyapısı — her satış için fatura kesilmesi zorunludur.',
+          'İşletme banka hesabı — ticari tahsilatı şahsi hesaba almayın.',
+          'Satın aldığınız ürünlerin alış faturaları — yeniden satışta zorunludur.',
+          'Tekstil ürünlerinde Türkçe etiket: elyaf kompozisyonu ve bakım talimatı.']),
+      el('h3', { text: '7 · Sipariş sana nasıl ulaşır?' }),
       el('p', { text: 'Sunucu olmadığı için sipariş kendiliğinden sana gelmez. Müşteri siparişi oluşturduğunda ekranda "Son adım: siparişi bize ilet" kutusu çıkar; WhatsApp veya e-posta düğmesine bastığında sipariş özeti hazır mesaj olarak sana gönderilir. Bu yüzden SHOP içindeki wa ve mail alanlarının doğru olması hayati önemdedir.' }),
       UL(['Mesajda sipariş kodu, ürünler, renk/beden, adet, toplam tutar, alıcı adı, telefon ve adres yer alır.',
           'Müşteri iletmezse sipariş sana ulaşmaz; kart "Bize iletilmedi" olarak işaretli kalır.',
           'Ödemeyi banka hesabından teyit et: gelen havale tutarı ile mesajdaki toplam aynı olmalı. Tutmuyorsa ürünü gönderme.',
           'Stok sayısı her tarayıcıda ayrı tutulur; ürünü göndermeden önce gerçek stoğunu kendin doğrula.']),
-      el('h3', { text: '7 · Güvenlik modeli' }),
+      el('h3', { text: '8 · Güvenlik modeli' }),
       el('p', { text: 'Hesap verileri (ad, telefon, adres, sipariş geçmişi) bu cihazda AES-GCM ile şifreli saklanır. Şifreleme anahtarı, kullanıcının parolasından PBKDF2 ile 150.000 turda türetilir ve yalnızca sekme açık olduğu sürece bellekte durur. Sekme kapanınca anahtar düşer, veriler okunamaz hâle gelir. Parola hiçbir yerde saklanmaz.' }),
       el('p', { class: 'box', text: 'Yine de bilmen gereken sınır: fiyat ve stok hesabı tarayıcıda yapılır. Ödeme havale ile ve senin onayınla tamamlandığı için bu bir açık değildir — çünkü ürünü göndermeden önce tutarı sen doğruluyorsun. Kredi kartıyla anlık tahsilata geçersen bu doğrulamanın sunucuya taşınması zorunlu olur.' }),
-      el('h3', { text: '8 · Son adım' }),
+      el('h3', { text: '9 · Son adım' }),
       el('p', { text: 'Hepsi tamamlandığında dosyanın başındaki DEMO değerini false yapın. Uyarı şeridi, görsel damgası ve örnek yorumlar kaybolur.' })
     ]; } },
   { id: 'iletisim', n: 'İletişim & şirket bilgileri', build: function () {
@@ -4451,15 +4403,14 @@ var DOCS = [
     } },
   { id: 'sss', n: 'Sık sorulan sorular', build: function () {
       var faq = [
-        ['Kargo ne kadar sürer?', 'Ödeme onayından sonra siparişler hafta içi hazırlanır. Standart kargo 2–4 iş günü, hızlı kargo 1–2 iş günü sürer. Bursa Nilüfer\'deki showroomdan elden teslim seçeneği de var. Tahmini teslim tarihi ödeme adımında net olarak gösterilir.'],
+        ['Kargo ne kadar sürer?', 'Ödeme onayından sonra siparişler hafta içi hazırlanır ve kargoya verilir. Standart kargo 2–4 iş günü, hızlı kargo 1–2 iş günü sürer. Tahmini teslim tarihi ödeme adımında, sipariş vermeden önce net olarak gösterilir.'],
         ['Kargo ücreti ne kadar?', money(SHOP.freeShip) + ' ve üzeri siparişlerde standart kargo ücretsiz. Altındaki siparişlerde standart kargo ' + money(79) + ', hızlı kargo ' + money(149) + '. Ücret ödeme adımında, sipariş vermeden önce gösterilir; sonradan sürpriz ek ücret çıkmaz.'],
         ['Ödemeyi nasıl yapıyorum?', 'Tek ödeme yöntemimiz banka havalesi / EFT. Siparişi oluşturduğunda sana bir sipariş kodu veriyoruz; kendi bankandan IBAN\'ımıza gönderiyor, açıklamaya sadece o kodu yazıyorsun. Bu sitede kart bilgisi hiçbir aşamada istenmez ve saklanmaz.'],
-        ['İade ve değişim koşulları neler?', 'Giyim ürünlerinde teslimattan itibaren 14 gün cayma hakkın var; ürün kullanılmamış ve etiketleri sökülmemiş olmalı. Beden değişiminde tek yön kargoyu biz karşılıyoruz. Ambalajı açılmış parfümler hijyen gerekçesiyle iade kapsamı dışında.'],
+        ['İade ve değişim koşulları neler?', 'Teslimattan itibaren 14 gün içinde sebep göstermeden cayma hakkın var; ürün kullanılmamış, yıkanmamış ve etiketleri sökülmemiş olmalı. Beden değişiminde tek yön kargoyu biz karşılıyoruz.'],
         ['Bedenler nasıl? Hangi bedeni almalıyım?', 'Tüm kalıplar oversize. Normal kesim istiyorsan bir beden küçük al. Her ürün sayfasında ölçü tablosu ve boy-kilo girerek beden öneren "Bedenimi bul" aracı var.'],
-        ['Baskı ne kadar dayanıklı?', 'Su bazlı DTG ve serigrafi kullanıyor, 160°C\'de ısıl işlemle sabitliyoruz. 30°C\'de tersten yıkanır, baskıya doğrudan ütü yapılmazsa en az 50 yıkama boyunca çatlamaz.'],
+        ['Baskı ne kadar dayanıklı?', 'Ürünlerin baskıları ısıl işlemle sabitlenmiş serigrafi ve DTG baskıdır. 30°C\'de tersten yıkanır, baskıya doğrudan ütü yapılmazsa uzun süre çatlamaz ve solmaz. Her ürünün baskı tipi, ürün sayfasındaki teknik özellikler bölümünde yazar.'],
         ['Siparişimi nasıl takip ederim?', 'Hesabım › Siparişlerim bölümünde her siparişin durumu adım adım görünür: Hazırlanıyor → Kargoya verildi → Dağıtımda → Teslim edildi. Kargoya verildiğinde takip numarası da orada listelenir ve bildirim alırsın.'],
         ['Toplu / kurumsal sipariş yapabilir miyim?', '20 adet ve üzeri alımlarda kademeli indirim uyguluyoruz: 20–49 adet %15, 50–99 adet %22, 100+ adet %30. ' + SHOP.mail + ' adresine model, beden dağılımı ve adet yazman yeterli; 1 iş günü içinde teklifle dönüyoruz.'],
-        ['Parfümler ne kadar kalıcı?', 'Seri tamamen Eau de Parfum konsantrasyonunda (%18–22 esans). Ten yapısına göre 6–10 saat kalıcılık verir. Nemli tene, nabız noktalarına sıkıp sürttürmemek kalıcılığı artırır.'],
         ['Ürünüm tükendi, tekrar gelecek mi?', 'Stok tazelemelerini Instagram hesabımızdan duyuruyoruz. Beklediğin bir model ve beden varsa ' + SHOP.mail + ' adresine yaz, geldiğinde haber verelim.']
       ];
       var out = [el('h2', { text: 'Sık sorulan sorular' })];
@@ -4503,9 +4454,8 @@ var DOCS = [
       UL(['Ürün kullanılmamış, yıkanmamış, koku sinmemiş ve etiketleri sökülmemiş olmalıdır.',
           'Orijinal ambalaj ve varsa hediye ürünler birlikte gönderilmelidir.',
           'İade onaylandığında ödeme, ürün bize ulaştıktan sonra 14 gün içinde havale yaptığın IBAN\'a geri gönderilir.']),
-      el('h3', { text: 'Cayma hakkının istisnası' }),
-      el('p', { class: 'box', text: 'Ambalajı/jelatini açılmış parfümler, sağlık ve hijyen koşulları bakımından iadeye uygun olmadığından Mesafeli Sözleşmeler Yönetmeliği m.15/1-(ğ) uyarınca cayma hakkı kapsamı dışındadır. Jelatini açılmamış parfümlerde 14 günlük cayma hakkı normal şekilde işler.' }),
-      P('Ayıplı ürün, yanlış gönderim ve kargo hasarı bu istisnanın dışındadır; bu hâllerde iade her zaman kabul edilir ve kargo masrafı bize aittir.'),
+      el('h3', { text: 'İç giyim ve hijyen' }),
+      el('p', { class: 'box', text: 'Sattığımız ürünler dış giyimdir ve tamamı 14 günlük cayma hakkı kapsamındadır. Ayıplı ürün, yanlış gönderim ve kargo hasarında iade her zaman kabul edilir ve kargo masrafı bize aittir.' }),
       el('h3', { text: 'Beden değişimi' }),
       P('Giyim ürünlerinde beden değişimi ücretsizdir. Teslimattan sonraki 14 gün içinde talebini oluştur; doğru bedeni stokta tutar, tek yön kargoyu biz karşılarız.'),
       el('h3', { text: 'Nasıl talep açarım?' }),
@@ -4526,7 +4476,7 @@ var DOCS = [
       el('h3', { text: '4. Teslimat' }),
       P('Ürün, ödemenin onaylanmasından itibaren yasal 30 günlük süreyi aşmamak kaydıyla, sipariş sırasında seçilen kargo tipine göre ALICI\'nın bildirdiği adrese teslim edilir.'),
       el('h3', { text: '5. Cayma hakkı' }),
-      P('ALICI, teslimden itibaren 14 gün içinde cayma hakkını kullanabilir. Ambalajı açılmış parfümler, Yönetmelik m.15/1-(ğ) kapsamında cayma hakkı dışındadır. Ayrıntı için İade & Değişim Politikası\'na bakınız.'),
+      P('ALICI, teslimden itibaren 14 gün içinde cayma hakkını kullanabilir. Ayrıntı için İade & Değişim Politikası\'na bakınız.'),
       el('h3', { text: '6. Uyuşmazlık' }),
       P('Uyuşmazlıklarda, Ticaret Bakanlığı\'nca ilan edilen parasal sınırlar dâhilinde ALICI\'nın yerleşim yerindeki Tüketici Hakem Heyetleri ile Tüketici Mahkemeleri yetkilidir.')
     ]; } },
