@@ -155,11 +155,19 @@ table{border-collapse:collapse}
   background:color-mix(in srgb,var(--warn) 16%,var(--surf));border-bottom:1px solid color-mix(in srgb,var(--warn) 42%,transparent);
   font-size:.82rem;color:var(--tx);position:relative;z-index:55}
 .demo-bar b{font-weight:700}
+.dm-short{display:none}
+.dm-x{width:28px;height:28px;flex:0 0 auto;border-color:transparent;background:transparent}
+.dm-x svg{width:13px;height:13px}
 .demo-bar svg{width:16px;height:16px;flex:0 0 auto;stroke:var(--warn);fill:none;stroke-width:2}
-@media (max-width:700px){
-  .demo-bar{flex-wrap:wrap;gap:6px 10px;font-size:.76rem;padding:8px var(--gut)}
-  .demo-bar .grow{flex:1 1 100%;min-width:0}
-  .demo-bar .btn{padding:5px 11px;font-size:.74rem}
+@media (max-width:860px){
+  /* Tek satir: uyari ekranin ucte birini yemesin */
+  .demo-bar{gap:8px;font-size:.75rem;padding:6px var(--gut)}
+  .demo-bar .grow{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dm-long{display:none}
+  .dm-long2{display:none}
+  .dm-short{display:inline}
+  .demo-bar .btn{padding:4px 10px;font-size:.72rem}
+  .demo-bar svg:first-child{width:14px;height:14px}
 }
 .mesh{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .mesh i{position:absolute;border-radius:50%;filter:blur(90px);display:block}
@@ -207,6 +215,7 @@ table{border-collapse:collapse}
 .avatar-btn{width:38px;height:38px;border-radius:var(--rf);border:1px solid var(--line);background:var(--av-bg);overflow:hidden;
   transition:border-color .2s,transform .18s var(--ease)}
 .avatar-btn:hover{border-color:var(--ac);transform:translateY(-1px)}
+.avatar-btn.only-wide{}
 .avatar-btn img,.avatar-btn svg{width:100%;height:100%}
 .av-img{width:100%;height:100%;object-fit:contain;background:var(--av-bg);display:block;
   image-rendering:pixelated;image-rendering:-moz-crisp-edges}
@@ -678,8 +687,8 @@ table{border-collapse:collapse}
 .mmenu{position:fixed;inset:var(--top) 0 0;z-index:150;background:var(--bg);padding:var(--gut);overflow-y:auto;
   clip-path:circle(0% at calc(100% - 40px) 0);transition:clip-path .5s var(--ease);visibility:hidden}
 .mmenu.open{clip-path:circle(160% at calc(100% - 40px) 0);visibility:visible}
-.mmenu button{display:flex;align-items:center;gap:12px;width:100%;padding:14px 6px;border-bottom:1px solid var(--line);
-  font-family:var(--f-display);font-weight:800;font-size:1.3rem;text-transform:uppercase;letter-spacing:-.02em}
+.mmenu button{display:flex;align-items:center;gap:12px;width:100%;padding:13px 6px;border-bottom:1px solid var(--line);
+  font-family:var(--f-display);font-weight:800;font-size:1.15rem;text-transform:uppercase;letter-spacing:-.02em}
 .mmenu button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8}
 
 /* ═══════════════════════ 11. DUYARLI ═══════════════════════ */
@@ -694,9 +703,15 @@ table{border-collapse:collapse}
   .gate-art{display:none}
 }
 @media (max-width:860px){
-  :root{--top:56px}
+  :root{--top:56px;--sub:44px}
   .tabs{display:none}
   .burger{display:block}
+  /* Logo, arama, sepet, menu -> tek satir. Tema/favori/profil menuye tasindi. */
+  .topbar{flex-wrap:nowrap;gap:8px}
+  .search{order:0;flex:1 1 auto;max-width:none;margin:0;min-width:0}
+  .ico.only-wide,.avatar-btn.only-wide{display:none}
+  .subbar{padding-block:5px}
+  .crumb{font-size:.78rem}
   .catalog,.acct,.docs{grid-template-columns:1fr;overflow:visible}
   .filters,.acct-nav,.doc-nav{position:fixed;top:var(--top);bottom:0;left:0;width:min(300px,86vw);z-index:120;
     border-right:1px solid var(--line);transform:translate3d(-101%,0,0);visibility:hidden;
@@ -709,9 +724,9 @@ table{border-collapse:collapse}
   .pgrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
   .pname{font-size:.86rem}
   .rate-sum{grid-template-columns:1fr;gap:14px}
-  .search{order:3;flex:1 1 100%;max-width:none;margin:0}
-  .topbar{flex-wrap:wrap;height:auto;padding-block:8px}
-  .app{}
+  /* Dar ekranda yalnizca marka isareti; yazi kirpilir, arama alani buyur */
+  .brand{width:30px;overflow:hidden;padding:0;flex:0 0 auto}
+  .brand svg{height:24px}
   .avatar-grid{grid-template-columns:repeat(3,1fr)}
   .stickybuy{display:flex}
 }
@@ -862,11 +877,11 @@ table{border-collapse:collapse}
     </div>
 
     <div class="tools">
-      <button class="ico" type="button" id="themeBtn" aria-label="Açık temaya geç" aria-pressed="false">
+      <button class="ico only-wide" type="button" id="themeBtn" aria-label="Açık temaya geç" aria-pressed="false">
         <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" aria-hidden="true" hidden><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M22 12h-2.4M4.4 12H2M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3L5.6 5.6"/></svg>
       </button>
-      <button class="ico" type="button" id="favBtn" aria-label="Favorilerim">
+      <button class="ico only-wide" type="button" id="favBtn" aria-label="Favorilerim">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.4S3.6 15.3 3.6 9.6A4.1 4.1 0 0 1 12 7.4a4.1 4.1 0 0 1 8.4 2.2c0 5.7-8.4 10.8-8.4 10.8z"/></svg>
         <span class="badge" id="favCount" aria-hidden="true">0</span>
       </button>
@@ -874,7 +889,7 @@ table{border-collapse:collapse}
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.2l2 12.2A2 2 0 0 0 9.2 18h8.4a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="21" r="1.2"/><circle cx="18" cy="21" r="1.2"/></svg>
         <span class="badge" id="cartCount" aria-hidden="true">0</span>
       </button>
-      <button class="avatar-btn" type="button" id="meBtn" aria-label="Hesabım"></button>
+      <button class="avatar-btn only-wide" type="button" id="meBtn" aria-label="Hesabım"></button>
       <button class="burger" type="button" id="burger" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mmenu"><i></i><i></i><i></i></button>
     </div>
   </header>
@@ -885,8 +900,11 @@ table{border-collapse:collapse}
   </div>
   <div class="demo-bar" id="demoBar">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2.5 20h19z"/><path d="M12 9.5v4.3M12 16.8v.1"/></svg>
-    <span class="grow"><b>Örnek katalog.</b> Buradaki ürünler, fiyatlar, görseller ve yorumlar yer tutucudur — gerçek ürünlerin değildir.</span>
-    <button class="btn b-sec b-sm" type="button" id="demoHelp">Nasıl değiştiririm?</button>
+    <span class="grow"><b>Örnek katalog.</b><span class="dm-long"> Buradaki ürünler, fiyatlar, görseller ve yorumlar yer tutucudur — gerçek ürünlerin değildir.</span></span>
+    <button class="btn b-sec b-sm" type="button" id="demoHelp"><span class="dm-long2">Nasıl değiştiririm?</span><span class="dm-short">Nasıl?</span></button>
+    <button class="ico dm-x" type="button" id="demoClose" aria-label="Uyarıyı gizle">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
   </div>
   <div class="subbar" id="subbar">
     <nav class="crumb" id="crumb" aria-label="Kırıntı yolu"></nav>
@@ -2023,7 +2041,14 @@ $('#homeBtn').addEventListener('click', function () { setFilter({ cat: null, sub
 
 /* Demo şeridi */
 if (!DEMO) { var db = $('#demoBar'); if (db) db.hidden = true; }
-else $('#demoHelp').addEventListener('click', function () { go('docs', { docTab: 'kurulum' }); });
+else {
+  $('#demoHelp').addEventListener('click', function () { go('docs', { docTab: 'kurulum' }); });
+  if (LS.get('demoHid', false)) $('#demoBar').hidden = true;
+  $('#demoClose').addEventListener('click', function () {
+    $('#demoBar').hidden = true; LS.set('demoHid', true);
+    toast('Uyarı gizlendi. Yardım › Kurulum sayfasından her zaman ulaşabilirsin.');
+  });
+}
 
 /* Çerez bandı */
 $('#cookieOk').addEventListener('click', function () { LS.set('cookieOk', true); $('#cookie').hidden = true; });
@@ -2041,12 +2066,22 @@ $('#burger').addEventListener('click', function () {
   var m = $('#mmenu'), open = m.classList.contains('open');
   if (open) return closeMobileMenu();
   clear(m);
-  [['catalog', 'Vitrin', 'M3 6h18M3 12h18M3 18h11'], ['account', 'Hesabım', 'M4 20a8 8 0 0 1 16 0'],
+  [['catalog', 'Vitrin', 'M3 6h18M3 12h18M3 18h11'],
+   ['account', S.user ? 'Hesabım' : 'Giriş yap', 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20a7.5 7.5 0 0 1 15 0'],
    ['docs', 'Yardım', 'M12 17v.1M12 13.5a2.6 2.6 0 1 0-2.6-3.1']].forEach(function (r) {
     m.appendChild(el('button', { type: 'button', onclick: function () { go(r[0]); } }, [ic(r[2], 1.8), el('span', { text: r[1] })]));
   });
+  m.appendChild(el('button', { type: 'button', onclick: function () { closeMobileMenu(); openFav(); } },
+    [ic('M12 20.4S3.6 15.3 3.6 9.6A4.1 4.1 0 0 1 12 7.4a4.1 4.1 0 0 1 8.4 2.2c0 5.7-8.4 10.8-8.4 10.8z', 1.8),
+     el('span', { class: 'grow', text: 'Favoriler' }),
+     S.favs.length ? el('span', { class: 'chip chip-ac', text: String(S.favs.length) }) : null]));
   m.appendChild(el('button', { type: 'button', onclick: function () { closeMobileMenu(); openCart(); } },
-    [ic('M3 4h2.2l2 12.2A2 2 0 0 0 9.2 18h8.4a2 2 0 0 0 2-1.6L21 8H6', 1.8), el('span', { text: 'Sepet' })]));
+    [ic('M3 4h2.2l2 12.2A2 2 0 0 0 9.2 18h8.4a2 2 0 0 0 2-1.6L21 8H6', 1.8),
+     el('span', { class: 'grow', text: 'Sepet' }),
+     cartQty() ? el('span', { class: 'chip chip-ac', text: String(cartQty()) }) : null]));
+  m.appendChild(el('button', { type: 'button', onclick: function () { $('#themeBtn').click(); closeMobileMenu(); } },
+    [ic('M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z', 1.8),
+     el('span', { text: document.documentElement.getAttribute('data-theme') === 'light' ? 'Koyu tema' : 'Açık tema' })]));
   m.hidden = false;
   requestAnimationFrame(function () { m.classList.add('open'); });
   this.setAttribute('aria-expanded', 'true');
